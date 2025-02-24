@@ -1,1 +1,0 @@
-padre(homero, bart).
