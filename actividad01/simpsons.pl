@@ -37,11 +37,11 @@ abuela(X, Y) :-
     madre(X, Z), (padre(Z, Y); madre(Z, Y)).
 
 hermano(X, Y) :-
-    (hijo(Y, P, M); hija(Y, P, M)), hijo(X, P, M),
+    (hijo(Y, P, M); hija(Y, P, M)), ((hijo(X, P, _); !); (hijo(X, _, M); !)),
     X \= Y.
 
 hermana(X, Y) :-
-    (hijo(Y, P, M); hija(Y, P, M)), hija(X, P, M),
+    (hijo(Y, P, M); hija(Y, P, M)), ((hija(X, P, _); !); (hija(X, _, M); !)),
     X \= Y.
 
 tio(X, Y) :-
