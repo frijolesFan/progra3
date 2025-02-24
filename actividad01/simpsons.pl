@@ -18,7 +18,7 @@ madre(jacqueline, marge).
 madre(selma, ling).
 
 %hijo, padre, madre
-hijo(herbert, abraham, _).
+hijo(herbert, abraham, na).
 hijo(homero, abraham, mona).
 hijo(bart, homero, marge).
 hija(marge, clancy, jacqueline).
@@ -26,9 +26,7 @@ hija(patty, clancy, jacqueline).
 hija(selma, clancy, jacqueline).
 hija(lisa, homero, marge).
 hija(maggie, homero, marge).
-hija(ling, _, selma).
-
-esposos(homero, marge).
+hija(ling, na, selma).
 
 %relaciones indirectas --------------
 
@@ -51,3 +49,9 @@ tio(X, Y) :-
 
 tia(X, Y) :-
     (padre(Z, Y), hermana(X, Z)) ; (madre(Z, Y), hermana(X, Z)).
+
+primo(X, Y) :-
+    (tia(T, Y); tio(T, Y)), hijo(X, _, T).
+
+prima(X, Y) :-
+    (tia(T, Y); tio(T, Y)), hija(X, _, T).
