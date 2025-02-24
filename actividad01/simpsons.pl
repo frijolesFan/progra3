@@ -1,0 +1,3 @@
+%comentario
+
+padre(homero, bart).
