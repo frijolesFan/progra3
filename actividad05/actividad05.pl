@@ -1,30 +1,21 @@
-padre(homero, bart).
-padre(homero, lisa).
-padre(homero, maggie).
-padre(abraham, herbert).
-padre(abraham, homero).
-padre(clancy, marge).
-padre(clancy, patty).
-padre(clancy, selma).
-madre(mona, homero).
-madre(marge, bart).
-madre(marge, lisa).
-madre(marge, maggie).
-madre(jacqueline, patty).
-madre(jacqueline, selma).
-madre(jacqueline, marge).
-madre(selma, ling).
+padre(homero, [bart, lisa, maggie]).
+padre(abraham, [herbert, homero]).
+padre(clancy, [marge, patty, selma]).
 
-%hijo, padre, madre
-hijo(herbert, abraham, na).
-hijo(homero, abraham, mona).
-hijo(bart, homero, marge).
-hija(marge, clancy, jacqueline).
-hija(patty, clancy, jacqueline).
-hija(selma, clancy, jacqueline).
-hija(lisa, homero, marge).
-hija(maggie, homero, marge).
-hija(ling, na, selma).
+madre(mona, [homero]).
+madre(marge, [bart, lisa, maggie]).
+madre(jacqueline, [marge, patty, selma]).
+madre(selma, [ling]).
+
+hijo(herbert, [abraham, na]).
+hijo(homero, [abraham, mona]).
+hijo(bart, [homero, marge]).
+hija(marge, [clancy, jacqueline]).
+hija(patty, [clancy, jacqueline]).
+hija(selma, [clancy, jacqueline]).
+hija(lisa, [homero, marge]).
+hija(maggie, [homero, marge]).
+hija(ling, [na, selma]).
 
 %relaciones indirectas --------------
 
