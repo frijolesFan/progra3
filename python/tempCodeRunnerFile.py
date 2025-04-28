@@ -1,19 +1,25 @@
 import itertools as it
-from unicodedata import digit
 
-letras = set("SEND MORE MONEY")
-letras.discard(" ")
-digitos = set(range(0,10))
-digitos.discard(1)
+letras = "ABCDEFGHI"
+numeros = "123456789"
 
-perms = list(it.permutations(digitos, len(letras) - 1))
-dic = {k: None for k in letras}
-def posM(dic):
-    p = 0
-    for i in dic.keys():
-        if i == "M":
-            return p
-            break
-        p += 1
+def partir3(string):
+    partes = [string[i:i+3] for i in range(0,9,3)]
+    variables = {}
+    for i, parte in enumerate(partes):
+        variables[i] = parte
+    return partes
 
-print(posM(dic))
+l3 = partir3(letras)
+n3 = partir3(numeros)
+print(l3)
+print(n3)
+
+#print(recuadros)
+
+# --- Reglas ---
+#   - No se pueden repetir numeros en las columnas
+#   - No se pueden repetir numeros en las filas
+#   - No se pueden repetir numeros en los recuadros
+#   - Si en fila o columnas hay dominios repetidos se eliminan de las demas casillas
+#       Si existe A1={1,2}, A2 = {1,2}, A3{1,2,4,5}, A5{1,2,7,8} se elimina {1,2} de A3 y A5
