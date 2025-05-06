@@ -62,15 +62,21 @@ def ConsistenceDifference(Constraints,VarDoms):
             VarDoms[varAux].discard(list(VarDoms[var])[0])
   return VarDoms
 
-ConsistenceDifference(ConstraintsVars,Vars)
-#print(Vars)
+#*********************************************************
+def hayDominioMayorAUno(Vars):
+    return any(len(dom) > 1 for dom in Vars.values())
 
-pos=0
-for key in strKeys:
-  if pos==0:
-    listkey=[]
-  listkey.append(key)
-  pos+=1
-  if pos==9:
-    print(listkey)
-    pos=0
+# Número de iteraciones deseadas
+nIt = 3
+
+# Ejecutar ConsistenceDifference un número controlado de veces
+for i in range(nIt):
+    ConsistenceDifference(ConstraintsVars, Vars)
+    # Si ya no hay dominios mayores a 1, podemos salir del bucle
+    if not hayDominioMayorAUno(Vars):
+        print(f"Solución encontrada en la iteración {i+1}")
+        break
+    elif i == nIt-1:
+        print(f"Se alcanzó el máximo de iteraciones ({nIt}) sin encontrar solución completa")
+
+print(Vars)
