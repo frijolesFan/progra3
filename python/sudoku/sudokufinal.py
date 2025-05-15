@@ -1,7 +1,6 @@
 #genera cada celda del sudoku
 
 debug = True
-ntab = 1
 
 def separador():
   print('\n',"-"*50,'\n')
@@ -46,9 +45,37 @@ for box_x in range(0, 9, 3):
 
 print(f"{separador()}Genera la Restricción por cajas:\n\n{const}") if debug else None
 
-with open(f'tab{ntab}.txt') as fd: 
+#abre el archivo del sudoku y asigna los valores iniciales
+
+with open(r"c:\Users\USER\Desktop\Semestre 4\progra3\rep3\python\sudoku\tab1.txt") as fd: 
   for fila in filas:
     for col in cols:
       value=int(fd.readline())
       if value<10 and value:
         Vars[f"{col}{fila}"]={value}
+
+print(f"{separador()}Asigna los valores iniciales:\n\n{Vars}") if debug else None
+
+#elimina los valores fijos de las celdas
+
+def eliminar_valores_fijos(const, Vars):
+    for constraint in const: 
+        for key in constraint: 
+            if len(Vars[key]) == 1: 
+                fixed_value = next(iter(Vars[key]))
+                for other_key in constraint: 
+                    if other_key != key and len(Vars[other_key]) > 1: 
+                        Vars[other_key].discard(fixed_value) 
+#bucle principal de resolución aplicando unicamente consistencia
+prev_count = -1
+while True:
+    eliminar_valores_fijos(const, Vars)
+    
+    varsWithoutValue = [value for var, value in Vars.items() if len(value) > 1]
+    current_count = len(varsWithoutValue)
+    
+    if current_count == prev_count:
+        break
+    prev_count = current_count
+
+print(f"{separador()}Resultado final:\n\n{Vars}") if debug else None  
