@@ -1,6 +1,6 @@
 import itertools as it
 
-archivo = 'python\sudoku\SD1NZURG-muyfacil.txt'
+archivo = 'SD1NZURG-muyfacil.txt'
 Dom=set(range(1,10))
 IdCols="ABCDEFGHI"
 keys=list(it.product(range(1,10),IdCols))
@@ -22,7 +22,6 @@ def DefColsConstraints(IdCols,Dom):
   for id in IdCols:
     ConstraintVars=[f"{id}{i}" for i in Dom]
     ColsConstraints.append(ConstraintVars)
-    #print(ConstraintVars)
   return ColsConstraints
 
 def DefRowsConstraints(IdCols,Dom):
@@ -30,7 +29,6 @@ def DefRowsConstraints(IdCols,Dom):
   for i in Dom:
     ConstraintVars=[f"{id}{i}" for id in IdCols]
     RowsConstraints.append(ConstraintVars)
-    #print(ConstraintVars)
   return RowsConstraints
 
 def defBoxesContraints(IdCols,Dom):
@@ -62,21 +60,68 @@ def ConsistenceDifference(Constraints,VarDoms):
             VarDoms[varAux].discard(list(VarDoms[var])[0])
   return VarDoms
 
-#*********************************************************
-def hayDominioMayorAUno(Vars):
-    return any(len(dom) > 1 for dom in Vars.values())
+def ConsistenceDomsEqual(Constraints,VarDoms):
+  anyChange=False
+  for var1 in Constraints:
+    if len(VarDoms[var1])==2:
+      #discardValue=list(Vars[var1])[0]
+      for var2 in Constraints:
+        if not(var1==var2):
+          if VarDoms[var1]==VarDoms[var2]:
+            for var3 in Constraints:
+              if not(var1==var3) and not(var2==var3):
+                oldValue=VarDoms[var3].copy()
+                VarDoms[var3].discard(list(VarDoms[var1])[0])
+                VarDoms[var3].discard(list(VarDoms[var1])[1])
+                if not(oldValue==VarDoms[var3]):
+                  anyChange=True
+  return anyChange
 
-# Número de iteraciones deseadas
-nIt = 3
+def DomsEqual(Vars,constraint):
+  anyChange=False
+  varsEquals={}
+  for var1 in constraint:
+    if len(Vars[var1])>1:
+      for var2 in constraint:
+        if not(var1==var2):
+          if (Vars[var1]==Vars[var2]):
+            if tuple(Vars[var1]) in varsEquals:
+              Set_aux=set(varsEquals[tuple(Vars[var1])].copy())
+              Set_aux.add(var1)
+              Set_aux.add(var2)
+              varsEquals[tuple(Vars[var1])]=list(Set_aux)
+            else:
+              varsEquals[tuple(Vars[var1])]=[var1,var2]
+  for domVar in varsEquals:
+    if len(domVar)==len(varsEquals[domVar]):
+      for var in constraint:
+        if not(var in varsEquals[domVar]):
+          for value in domVar:
+            oldValue=Vars[var].copy()
+            Vars[var].discard(value)
+            if not(oldValue==Vars[var]):
+              anyChange=True
+  return anyChange
 
-# Ejecutar ConsistenceDifference un número controlado de veces
-for i in range(nIt):
-    ConsistenceDifference(ConstraintsVars, Vars)
-    # Si ya no hay dominios mayores a 1, podemos salir del bucle
-    if not hayDominioMayorAUno(Vars):
-        print(f"Solución encontrada en la iteración {i+1}")
-        break
-    elif i == nIt-1:
-        print(f"Se alcanzó el máximo de iteraciones ({nIt}) sin encontrar solución completa")
+ConsistenceDifference(ConstraintsVars,Vars)
+for const in ConstraintsVars:
+  ConsistenceDomsEqual(const,Vars)
+
+constraints = {
+    "ConsistenceDifference": ConstraintsVars,
+    "ConsistenceDomsEqual": ConstraintsVars,
+    "DomsEqual": ConstraintsVars
+}
+
+anyChange = True
+iteration = 1
+while anyChange:
+    print(f"iteration # {iteration}")
+    anyChange = False
+    for const_name, const_vars in constraints.items():
+        for varsList in const_vars:
+            print(f"consistence of {const_name}")
+            anyChange = eval(f"{const_name}(Vars,varsList)") if not(anyChange) else True
+    iteration += 1
 
 print(Vars)
