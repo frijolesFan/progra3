@@ -107,21 +107,3 @@ ConsistenceDifference(ConstraintsVars,Vars)
 for const in ConstraintsVars:
   ConsistenceDomsEqual(const,Vars)
 
-constraints = {
-    "ConsistenceDifference": ConstraintsVars,
-    "ConsistenceDomsEqual": ConstraintsVars,
-    "DomsEqual": ConstraintsVars
-}
-
-anyChange = True
-iteration = 1
-while anyChange:
-    print(f"iteration # {iteration}")
-    anyChange = False
-    for const_name, const_vars in constraints.items():
-        for varsList in const_vars:
-            print(f"consistence of {const_name}")
-            anyChange = eval(f"{const_name}(Vars,varsList)") if not(anyChange) else True
-    iteration += 1
-
-print(Vars)
