@@ -1,10 +1,17 @@
-#genera cada celda del sudoku
+#RESOLUTOR DE SUDOKU EN PYTHON MEDIANTE CSP
+#Autor: Juan Camilo Guevara Osorio
+#Para la asignatura de Programación 3
+#Docente Ramiro Andrés Valencia Barrios
+#
+#Hecho en Python 3.13.2, mediante Visual Studio Code
 
 debug = False
 
 def separador():
   print('\n',"-"*50,'\n')
   return ''
+
+#genera cada celda del sudoku
 
 cols="ABCDEFGHI"
 filas={i for i in range(1,10)}
@@ -67,8 +74,6 @@ def eliminar_valores_fijos(const, Vars):
                     if other_key != key and len(Vars[other_key]) > 1: 
                         Vars[other_key].discard(fixed_value) 
 
-print(f"{separador()}Elimina los valores fijos:\n\n{Vars}") if debug else None
-
 #asigna valores unicos a las celdas si ese valor no está en los dominios de otras celdas en la misma restricción
 
 def asignar_valores_unicos(const, Vars): 
@@ -90,9 +95,7 @@ def asignar_valores_unicos(const, Vars):
                 if not conflict_found: 
                     Vars[key] = {unique_value} 
 
-print(f"{separador()}Asigna valores unicos:\n\n{Vars}") if debug else None
-
-#reduce el dominio aplicando la técnica de pares ocultos
+#reduce el dominio aplicando la técnica de pares
 
 def pares(const, Vars): 
     for constraint in const: 
@@ -105,7 +108,6 @@ def pares(const, Vars):
                         if key != key1 and key != key2: 
                             Vars[key] -= dom1 
 
-print(f"{separador()}Aplica pares ocultos:\n\n{Vars}") if debug else None
 
 #reduce el dominio aplicando la técnica de tripletas
 
