@@ -125,6 +125,7 @@ def tripletas(const, Vars):
                                 if key not in [key1, key2, key3]: 
                                     Vars[key] -= combined_dom 
 
+
 #aplica la consistencia para reducir el dominio de las celdas
 def aplicar_consistencia(const, Vars):
     prev_count = -1
@@ -218,3 +219,4 @@ if busqueda_constructiva(const, Vars):
         print()
 else:
     print(f"{separador()}No se encontró solución")
+    
