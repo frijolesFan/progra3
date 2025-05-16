@@ -1,15 +1,15 @@
 tableros:
 
-muy facil
+muy facil (resuelve unicamente con consistencia)
 1: SD1NZURG
 
-facil
+facil (resuelve unicamente con consistencia)
 2: SD2QPEUQ
 
 moderado
 3: SD3BYAQX
 
-dificil
+dificil (resuelve unicamente con consistencia)
 4: SD4MHWKZ
 
 muy dificil
@@ -26,4 +26,5 @@ extremo
 
 imposible
 9: SD9PRVYD
-
+10: SD9HMOTQ
+11: SD9OYJJZ
