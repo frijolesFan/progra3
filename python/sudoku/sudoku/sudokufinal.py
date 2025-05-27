@@ -54,7 +54,7 @@ print(f"{separador()}Genera la Restricción por cajas:\n\n{const}") if debug els
 
 #abre el archivo del sudoku y asigna los valores iniciales
 
-with open(r"c:\Users\USER\Desktop\Semestre 4\progra3\rep3\python\sudoku\tab9.txt") as fd: 
+with open(r"c:\Users\USER\Desktop\Semestre 4\progra3\rep3\python\sudoku\sudoku\tab9.txt") as fd: 
   for fila in filas:
     for col in cols:
       value=int(fd.readline())
