@@ -38,7 +38,7 @@ def LoadBoard(Vars,file_path):
             pos += 1
 
 #almacena el tablero de kakuro
-LoadBoard(Vars, 'kakuro/1.txt')
+LoadBoard(Vars, 'kakuro/3.txt')
 
 #-------------------------// DEFINICION DE RESTRICCIONES //--------------------------#
 #se definen las restricciones de suma, tanto para filas como para columnas
